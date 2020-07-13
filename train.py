@@ -48,6 +48,8 @@ def test(network, config, log_dir, step):
     output_dir = os.path.join(log_dir, 'samples')
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
+        utils.save_manifold(test.images, os.path.join(output_dir, '{testImages}.jpg'.format(step)))
+
 
     # scales = np.indices((8,8), dtype=np.float32)[1] * 5
     scales = np.ones((8,8))
@@ -94,7 +96,8 @@ def main(args):
             # Prepare input
             learning_rate = utils.get_updated_learning_rate(global_step, config)
             batch = trainset.pop_batch_queue()
-
+            print("batch: ", step)
+            print("epoch: ", epoch)
             wl, sm, global_step = network.train(batch['images'], batch['labels'], batch['is_photo'], learning_rate, config.keep_prob)
 
             wl['lr'] = learning_rate
@@ -111,7 +114,7 @@ def main(args):
         test(network, config, log_dir, global_step)
 
         # Save the model
-        if config.save_model:
+        if config.save_model and epoch % 49 == 0:
             network.save_model(log_dir, global_step)
 
 
