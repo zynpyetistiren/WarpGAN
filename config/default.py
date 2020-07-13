@@ -10,17 +10,17 @@ import os
 name = 'default'
 
 # The folder to save log and model
-log_base_dir = './log/'
+log_base_dir = '/content/drive/My Drive/log/'
 
 # Whether to save the model checkpoints and result logs
 save_model = True
 
 # The interval between writing summary
-summary_interval = 100
+summary_interval = 1000
 
 # Prefix to the image files
 # data_prefix = os.environ["DATABASES2"] + "/caricature/WebCaricature/webcaric_5ptaligned_sc0.7_256/"
-data_prefix = "data/webcaricature_aligned_256/"
+data_prefix = "data/data/Dataset/"
 
 # Training data list
 train_dataset_path = "./data/train.txt"
@@ -29,7 +29,7 @@ train_dataset_path = "./data/train.txt"
 test_dataset_path = "./data/test.txt"
 
 # Target image size (h,w) for the input of network
-image_size = (256, 256)
+image_size = (256,256)
 
 # 3 channels means RGB, 1 channel for grayscale
 channels = 3
@@ -58,7 +58,7 @@ network = 'models/default.py'
 bottleneck_size = 512
 
 # Dimensionality of the style space
-style_size = 8
+style_size = 1
 
 
 ####### TRAINING STRATEGY #######
@@ -68,13 +68,13 @@ optimizer = ("ADAM", {'beta1': 0.5, 'beta2': 0.9})
 # optimizer = ("MOM", {'momentum': 0.9})
 
 # Number of samples per batch
-batch_size = 2
+batch_size = 128
 
 # Number of batches per epoch
-epoch_size = 5000
+epoch_size = 200
 
 # Number of epochs
-num_epochs = 20
+num_epochs = 250
 
 # learning rate strategy
 learning_rate_strategy = 'linear'
@@ -88,10 +88,10 @@ learning_rate_schedule = {
 }
 
 # Restore model
-restore_model = "pretrained/discriminator_casia_256/"
+restore_model = 'pretrained/discriminator_casia_256/'#'/content/drive/My Drive/log/default/20200710-001229/'
 
 # Keywords to filter restore variables, set None for all
-restore_scopes =  ['Discriminator/conv', 'Discriminator/Bot']
+restore_scopes = ['Discriminator/conv', 'Discriminator/Bot']
 
 # Weight decay for model variables
 weight_decay = 1e-4
