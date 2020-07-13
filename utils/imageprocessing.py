@@ -227,7 +227,11 @@ def preprocess(images, config, is_training=False):
         assert (config.channels==1 or config.channels==3)
         mode = 'RGB' if config.channels==3 else 'I'
         for image_path in image_paths:
-            images.append(misc.imread(image_path, mode=mode))
+            image = misc.imread(image_path, mode=mode)
+            #print("\n img shape before preprocess, ",image.shape," after preprocess: ")
+            image = misc.imresize(image, (256,256))
+            #print(image.shape,"\n")
+            images.append(image)
         images = np.stack(images, axis=0)
     else:
         assert type(images) == np.ndarray
